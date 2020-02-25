@@ -1,0 +1,18 @@
+#header{
+    background:teal ;
+    height:50px;
+    color:white;
+}
+
+#branding h1{
+    color:white;
+}
+
+a:link,a:visited{
+    color:blue
+}
+
+.module h2,.module caption,.inline-group h2{
+    background:turquoise;
+   
+}
