@@ -1,6 +1,7 @@
 from django.shortcuts import render,get_object_or_404
 from .models import Listing
 from django.core.paginator import EmptyPage,PageNotAnInteger,Paginator
+from .choices import price_choices,bedroom_choices,state_choices
 # Create your views here.
 def index(request):
     listings =Listing.objects.order_by('-list_date').filter(is_published=True)
@@ -20,6 +21,41 @@ def listing(request,listing_id):
     return render(request,'listings/listing.html',context)
 
 def search(request):
-    return render(request,'listings/search.html')
+    #adding filter .search
+    queryset_list =Listing.objects.order_by('-list_date')# all listings now add filters for search
+
+    if 'keywords' in request.GET: # keywords checking 
+        keywords =request.GET['keywords']
+        if keywords:# not and empty list
+            queryset_list = queryset_list.filter(description__icontains=keywords) # _ double
+    
+    if 'city' in request.GET: # keywords checking 
+        city =request.GET['city']
+        if city:# not and empty list
+            queryset_list = queryset_list.filter(city__iexact=city)# iexact is case insensitive 
+                                                                    # use exact for sensitive
+    
+    if 'state' in request.GET: # keywords checking 
+        state =request.GET['state']
+        if state:# not and empty list
+            queryset_list = queryset_list.filter(state__iexact=state)
+    
+    if 'bedrooms' in request.GET: # keywords checking 
+        bedrooms =request.GET['bedrooms']
+        if bedrooms:# not and empty list
+            queryset_list = queryset_list.filter(bedrooms__lte=bedrooms)#lte -- lessthan equal to
+    
+    if 'price' in request.GET: # keywords checking 
+        price =request.GET['price']
+        if price:# not and empty list
+            queryset_list = queryset_list.filter(price__lte=price)
+    context ={
+        'state_choices':state_choices,
+        'bedroom_choices':bedroom_choices,
+        'price_choices':price_choices,
+        'listings':queryset_list,
+        'values':request.GET    # for keeping the contents to stay in the search 
+    }
+    return render(request,'listings/search.html',context)
 
     

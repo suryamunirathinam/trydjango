@@ -31,16 +31,17 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'pages.apps.PagesConfig',
-    'listings.apps.ListingsConfig',
-    'realtors.apps.RealtorsConfig',
+    'pages.apps.PagesConfig',#
+    'listings.apps.ListingsConfig',#
+    'realtors.apps.RealtorsConfig',#
+    'accounts.apps.AccountsConfig',#
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.humanize',
+    'django.contrib.staticfiles',#
+    'django.contrib.humanize',#
 ]
 
 MIDDLEWARE = [
@@ -77,7 +78,7 @@ WSGI_APPLICATION = 'djpro.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
+DATABASES = {#
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'surya',
