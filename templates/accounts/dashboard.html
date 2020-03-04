@@ -25,4 +25,39 @@
             </ol>
           </nav>
 
+          <section id="dashboard" class="py-4">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12">
+                  <h2>Welcome {{user.username.upper}}</h2>
+                  {% if contacts%}
+                    <p>Here are the property listings that you have inquired about</p>
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Property</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {%for contact in contacts%}
+                        <tr>
+                          <td>{{contact.id}}</td>
+                          <td>{{contact.listing}}</td>
+                          <td>
+                            <a class="btn btn-light" href="{%url 'listing' contact.listing_id %}">View Listing</a>
+                          </td>
+                        </tr>
+                        {%endfor%}
+                    </table>
+
+                  {%else%}
+                    <p>you have not made any enquiry</p>
+                  {%endif%}
+                </div>
+              </div>
+            </div>
+          </section>
+
 {%endblock%}
